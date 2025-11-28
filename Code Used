@@ -1,0 +1,12 @@
+SELECT 
+	u.year AS year,
+	u.num_games AS num_games,
+	c.avg_critic_score AS avg_critic_score,
+	u.avg_user_score AS avg_user_score,
+	(c.avg_critic_score - u.avg_user_score) AS diff
+FROM users_avg_year_rating AS u
+JOIN critics_avg_year_rating As c
+ON u.year = c.year
+GROUP BY u.year,c.avg_critic_score,u.avg_user_score
+HAVING c.avg_critic_score > 9 OR u.avg_user_score > 9
+ORDER BY year ASC;
